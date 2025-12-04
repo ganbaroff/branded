@@ -30,6 +30,10 @@ def load_api_key(key_name: str, required: bool = True) -> Optional[str]:
     """
     api_key = os.getenv(key_name)
     
+    # Treat empty strings as missing keys
+    if api_key == "":
+        api_key = None
+    
     if required and not api_key:
         raise ConfigurationError(
             f"Missing required API key: {key_name}\n"
@@ -93,12 +97,19 @@ def validate_configuration() -> dict:
     Raises:
         ConfigurationError: If any required API key is missing
     """
-    config_status = {
-        "openai": bool(load_openai_key()),
-        "anthropic": bool(load_anthropic_key()),
-        "google_ai": bool(load_google_ai_key()),
-        "huggingface": bool(load_huggingface_token()),
-    }
+    config_status = {}
+    
+    # Check OpenAI key (required)
+    try:
+        load_openai_key()
+        config_status["openai"] = True
+    except ConfigurationError:
+        raise  # Re-raise for required keys
+    
+    # Check optional keys
+    config_status["anthropic"] = bool(load_anthropic_key())
+    config_status["google_ai"] = bool(load_google_ai_key())
+    config_status["huggingface"] = bool(load_huggingface_token())
     
     return config_status
 

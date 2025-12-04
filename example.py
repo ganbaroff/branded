@@ -16,8 +16,11 @@ def main():
         # Load the API key
         api_key = load_openai_key()
         
-        # Mask the API key for display (show only first 8 and last 4 characters)
-        masked_key = f"{api_key[:8]}...{api_key[-4:]}" if len(api_key) > 12 else "***"
+        # Mask the API key for display (show only first 8 and last 4 characters for keys > 20 chars)
+        if len(api_key) > 20:
+            masked_key = f"{api_key[:8]}...{api_key[-4:]}"
+        else:
+            masked_key = "***"
         
         print(f"✓ API key loaded successfully: {masked_key}")
         print()
