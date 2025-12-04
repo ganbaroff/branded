@@ -1,0 +1,56 @@
+agent:
+  name: "VideoCreationAgent"
+  version: "1.0.0"
+  description: "Automated video creation agent using HeyGen and ElevenLabs"
+
+settings:
+  log_level: "INFO"
+  max_retries: 3
+  timeout: 300
+
+# HeyGen API Configuration
+heygen:
+  api_key: "your-heygen-api-key-here"
+  avatar_id: "your-avatar-id"
+  base_url: "https://api.heygen.com/v1"
+  video_settings:
+    resolution: "1920x1080"
+    fps: 30
+    format: "mp4"
+
+# ElevenLabs API Configuration
+elevenlabs:
+  api_key: "your-elevenlabs-api-key-here"
+  voice_id: "your-preferred-voice-id"
+  model: "eleven_multilingual_v2"
+  voice_settings:
+    stability: 0.5
+    similarity_boost: 0.75
+
+# Database Configuration
+database:
+  url: "postgresql://user:password@localhost:5432/photos_db"
+  pool_size: 5
+  timeout: 30
+
+# Storage Configuration
+storage:
+  provider: "s3"  # Options: s3, gcs, azure, local
+  bucket: "my-video-bucket"
+  region: "us-east-1"
+  access_key: "your-access-key"
+  secret_key: "your-secret-key"
+
+# Video Processing
+video:
+  max_duration: 300  # seconds
+  max_photos: 20
+  default_transition: "fade"
+  watermark: false
+
+# Delivery Options
+delivery:
+  method: "cloud_storage"  # Options: cloud_storage, email, webhook, youtube
+  webhook_url: "https://your-app.com/webhook/video-ready"
+  email_recipients:
+    - "user@example.com"

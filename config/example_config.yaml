@@ -1,0 +1,17 @@
+agent:
+  name: "ExampleAgent"
+  version: "1.0.0"
+  description: "An example AI agent using the Branded framework"
+
+settings:
+  log_level: "INFO"
+  max_retries: 5
+  timeout: 60
+  
+features:
+  enable_logging: true
+  enable_monitoring: false
+  
+parameters:
+  temperature: 0.7
+  max_tokens: 1000
